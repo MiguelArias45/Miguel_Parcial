@@ -12,7 +12,7 @@ class AdaptadorPagina(private val viajes: List<Viaje>, private val onClick: (Via
     RecyclerView.Adapter<AdaptadorPagina.ViajeViewHolder>() {
 
     class ViajeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textDestino: TextView = itemView.findViewById(R.id.textDestino)
+        private val textDestino: TextView = itemView.findViewById(R.id.textDestino)
         val textFechaInicio: TextView = itemView.findViewById(R.id.textFechaInicio)
 
         fun bind(viaje: Viaje, onClick: (Viaje) -> Unit) {

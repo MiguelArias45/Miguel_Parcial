@@ -9,35 +9,56 @@
         android:id="@+id/inputDestino"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Destino" />
+        android:hint="@string/hint_destino"
+        android:inputType="text"
+        android:autofillHints="name"
+        android:padding="12dp"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/inputFechaInicio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de Inicio" />
+        android:hint="@string/hint_fecha_inicio"
+        android:inputType="date"
+        android:autofillHints="date"
+        android:padding="12dp"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/inputFechaFin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de Fin" />
+        android:hint="@string/hint_fecha_fin"
+        android:inputType="date"
+        android:autofillHints="date"
+        android:padding="12dp"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/inputActividades"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Actividades" />
+        android:hint="@string/hint_actividades"
+        android:inputType="text"
+        android:autofillHints="note"
+        android:padding="12dp"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/inputPresupuesto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Presupuesto" />
+        android:hint="Presupuesto"
+        android:inputType="numberDecimal"
+        android:autofillHints="price"
+        android:padding="12dp"
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/btnGuardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guardar" />
+        android:text="@string/btn_guardar" />
 </LinearLayout>
+

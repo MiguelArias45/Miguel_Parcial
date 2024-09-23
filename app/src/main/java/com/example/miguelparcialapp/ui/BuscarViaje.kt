@@ -15,7 +15,7 @@ import com.example.miguelparcialapp.Datos.DatabaseHelper
 import com.example.miguelparcialapp.Datos.Viaje
 import com.example.miguelparcialapp.adaptador.AdaptadorPagina // Cambia aquí el nombre del adaptador
 
-class BuscarViajesFragment : Fragment() {
+class BuscarViajes : Fragment() {
 
     private lateinit var dbHelper: DatabaseHelper
     private lateinit var inputBusqueda: EditText
@@ -49,7 +49,7 @@ class BuscarViajesFragment : Fragment() {
 
         btnAgregar.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AgregarViajeFragment())
+                .replace(R.id.fragment_container, AgregarViaje()) // Asegúrate de usar el nombre correcto
                 .addToBackStack(null)
                 .commit()
         }
@@ -84,3 +84,4 @@ class BuscarViajesFragment : Fragment() {
             .commit()
     }
 }
+

@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">MiguelParcialApp</string>
+    <string name="app_name">Parcial</string>
+    <string name="hint_destino">Destino</string>
+    <string name="hint_fecha_inicio">Fecha de inicio</string>
+    <string name="hint_fecha_fin">Fecha de fin</string>
+    <string name="hint_notas">Notas</string>
+    <string name="hint_actividades">Actividades</string>
+    <string name="hint_buscar_destino">Buscar por destino</string>
+    <string name="btn_agregar_viaje">Agregar Viaje</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_buscar">Buscar</string>
 </resources>

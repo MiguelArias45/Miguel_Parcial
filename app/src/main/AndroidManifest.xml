@@ -7,21 +7,28 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Parcial"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MiguelParcialApp"
-        tools:targetApi="31" >
+        tools:targetApi="31">
 
-        <!-- Declarar MainActivity con android:exported -->
+        <!-- Declarar MainActivity como la actividad principal -->
         <activity
-            android:name=".MainActivity"
-            android:exported="true"> <!-- Especificar que la actividad está disponible para ser lanzada -->
+            android:name="com.example.miguelparcialapp.ui.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- No declarar AgregarViaje aquí, ya que es un Fragment -->
+
+        <!-- Declarar DetalleViajeFragment si lo usas como una actividad (opcional) -->
+        <activity
+            android:name="com.example.miguelparcialapp.ui.DetalleViajeFragment"
+            android:exported="false" /> <!-- Cambiar a true si es necesario -->
 
     </application>
 

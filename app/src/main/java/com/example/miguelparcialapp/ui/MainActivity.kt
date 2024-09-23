@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.miguelparcialapp.R
 import com.example.miguelparcialapp.Datos.DatabaseHelper
 import com.example.miguelparcialapp.Datos.Viaje
-import com.example.miguelparcialapp.adaptador.AdaptadorPagina // Asegúrate de que sea este el adaptador
+import com.example.miguelparcialapp.adaptador.AdaptadorPagina
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         // Botón para agregar un viaje
         btnAgregarViaje.setOnClickListener {
-            val intent = Intent(this, AgregarViajeFragment::class.java) // Asegúrate de que este nombre sea correcto
+            val intent = Intent(this, AgregarViaje::class.java) // Asegúrate de que este nombre sea correcto
             startActivity(intent)
         }
     }

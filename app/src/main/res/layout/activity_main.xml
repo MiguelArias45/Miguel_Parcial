@@ -30,7 +30,7 @@
         android:clipToPadding="false"
         android:paddingBottom="16dp" />
 
-    <!-- Contenedor para el fragmento -->
+    <!-- Contenedor para el fragmento de detalles -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
