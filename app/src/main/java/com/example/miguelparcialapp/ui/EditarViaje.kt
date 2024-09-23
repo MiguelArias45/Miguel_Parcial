@@ -24,7 +24,7 @@ class EditarViaje : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_editar_viaje, container, false) // Verifica el nombre aquí
+        return inflater.inflate(R.layout.editar_viaje, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +37,6 @@ class EditarViaje : Fragment() {
         editPresupuesto = view.findViewById(R.id.inputPresupuesto)
         btnGuardar = view.findViewById(R.id.btnGuardar)
 
-        // Cargar los datos del viaje
         obtenerViaje()
 
         btnGuardar.setOnClickListener {

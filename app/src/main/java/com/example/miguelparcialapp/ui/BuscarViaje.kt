@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.miguelparcialapp.R
 import com.example.miguelparcialapp.Datos.DatabaseHelper
 import com.example.miguelparcialapp.Datos.Viaje
-import com.example.miguelparcialapp.adaptador.AdaptadorPagina
-import com.example.miguelparcialapp.ui.DetalleViajeFragment
+import com.example.miguelparcialapp.adaptador.AdaptadorPagina // Cambia aquí el nombre del adaptador
 
 class BuscarViajesFragment : Fragment() {
 
@@ -21,7 +21,7 @@ class BuscarViajesFragment : Fragment() {
     private lateinit var inputBusqueda: EditText
     private lateinit var btnBuscar: Button
     private lateinit var btnAgregar: Button
-    private lateinit var listViewViajes: ListView
+    private lateinit var recyclerViewViajes: RecyclerView
     private lateinit var viajeAdapter: AdaptadorPagina
 
     override fun onCreateView(
@@ -39,7 +39,9 @@ class BuscarViajesFragment : Fragment() {
         inputBusqueda = view.findViewById(R.id.inputBusqueda)
         btnBuscar = view.findViewById(R.id.btnBuscar)
         btnAgregar = view.findViewById(R.id.btnAgregar)
-        listViewViajes = view.findViewById(R.id.listViewViajes)
+        recyclerViewViajes = view.findViewById(R.id.recyclerViewViajes)
+
+        recyclerViewViajes.layoutManager = LinearLayoutManager(requireContext())
 
         btnBuscar.setOnClickListener {
             buscarViaje()
@@ -64,18 +66,13 @@ class BuscarViajesFragment : Fragment() {
         val viajes: List<Viaje> = dbHelper.getViajesPorDestino(destino)
 
         if (viajes.isNotEmpty()) {
-            viajeAdapter = AdaptadorPagina(requireContext(), viajes) { viaje ->
+            viajeAdapter = AdaptadorPagina(viajes) { viaje ->
                 mostrarDetallesViaje(viaje)
             }
-            listViewViajes.adapter = viajeAdapter
-
-            listViewViajes.setOnItemClickListener { _, _, position, _ ->
-                val viajeSeleccionado = viajes[position]
-                mostrarDetallesViaje(viajeSeleccionado)
-            }
+            recyclerViewViajes.adapter = viajeAdapter
         } else {
             Toast.makeText(requireContext(), "No se encontraron viajes para el destino ingresado.", Toast.LENGTH_SHORT).show()
-            listViewViajes.adapter = null
+            recyclerViewViajes.adapter = null
         }
     }
 

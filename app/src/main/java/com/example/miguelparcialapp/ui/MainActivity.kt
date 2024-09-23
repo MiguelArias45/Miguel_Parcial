@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.miguelparcialapp.R
 import com.example.miguelparcialapp.Datos.DatabaseHelper
 import com.example.miguelparcialapp.Datos.Viaje
-import com.example.miguelparcialapp.adaptador.AdaptadorPagina // Verifica el nombre del adaptador
+import com.example.miguelparcialapp.adaptador.AdaptadorPagina // Asegúrate de que sea este el adaptador
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dbHelper: DatabaseHelper
     private lateinit var viajeAdapter: AdaptadorPagina
     private lateinit var recyclerView: RecyclerView
-    private lateinit var btnAgregarViaje: Button // Declaración del botón
+    private lateinit var btnAgregarViaje: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         // Botón para agregar un viaje
         btnAgregarViaje.setOnClickListener {
-            val intent = Intent(this, AgregarViajeActivity::class.java)
+            val intent = Intent(this, AgregarViajeFragment::class.java) // Asegúrate de que este nombre sea correcto
             startActivity(intent)
         }
     }
@@ -46,7 +46,10 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         // Actualiza la lista de viajes al regresar a la actividad
-        viajeAdapter.updateViajes(dbHelper.getAllViajes())
+        viajeAdapter = AdaptadorPagina(dbHelper.getAllViajes()) { viaje ->
+            mostrarDetallesViaje(viaje)
+        }
+        recyclerView.adapter = viajeAdapter // Reasignamos el adaptador con la nueva lista
     }
 
     private fun mostrarDetallesViaje(viaje: Viaje) {
