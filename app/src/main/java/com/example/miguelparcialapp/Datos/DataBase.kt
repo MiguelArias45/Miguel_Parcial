@@ -25,13 +25,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     // Se llama cuando se crea la base de datos
     override fun onCreate(db: SQLiteDatabase) {
-        val createTable = ("CREATE TABLE $TABLE_VIAJES ("
-                + "$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "$COLUMN_DESTINO TEXT,"
-                + "$COLUMN_FECHA_INICIO TEXT,"
-                + "$COLUMN_FECHA_FIN TEXT,"
-                + "$COLUMN_ACTIVIDADES TEXT,"
-                + "$COLUMN_PRESUPUESTO REAL)")
+        val createTable = ("CREATE TABLE $TABLE_VIAJES (" +
+                "$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "$COLUMN_DESTINO TEXT," +
+                "$COLUMN_FECHA_INICIO TEXT," +
+                "$COLUMN_FECHA_FIN TEXT," +
+                "$COLUMN_ACTIVIDADES TEXT," +
+                "$COLUMN_PRESUPUESTO REAL)")
         db.execSQL(createTable)
     }
 
@@ -64,11 +64,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         if (cursor.moveToFirst()) {
             do {
                 val viaje = Viaje(
-                    id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
-                    destino = cursor.getString(cursor.getColumnIndex(COLUMN_DESTINO)),
-                    fechaInicio = cursor.getString(cursor.getColumnIndex(COLUMN_FECHA_INICIO)),
-                    fechaFin = cursor.getString(cursor.getColumnIndex(COLUMN_FECHA_FIN)),
-                    actividades = cursor.getString(cursor.getColumnIndex(COLUMN_ACTIVIDADES)),
+                    id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID)),
+                    destino = cursor.getString(cursor.getColumnIndex(COLUMN_DESTINO)) ?: "",
+                    fechaInicio = cursor.getString(cursor.getColumnIndex(COLUMN_FECHA_INICIO)) ?: "",
+                    fechaFin = cursor.getString(cursor.getColumnIndex(COLUMN_FECHA_FIN)) ?: "",
+                    actividades = cursor.getString(cursor.getColumnIndex(COLUMN_ACTIVIDADES)) ?: "",
                     presupuesto = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRESUPUESTO))
                 )
                 viajesList.add(viaje)
@@ -80,7 +80,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     // Método para obtener un viaje por ID
-    fun getViaje(id: Int): Viaje? {
+    fun getViaje(id: Long): Viaje? {
         val db = this.readableDatabase
         val cursor: Cursor = db.query(
             TABLE_VIAJES, null, "$COLUMN_ID=?", arrayOf(id.toString()), null, null, null
@@ -88,11 +88,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         if (cursor.moveToFirst()) {
             val viaje = Viaje(
-                id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
-                destino = cursor.getString(cursor.getColumnIndex(COLUMN_DESTINO)),
-                fechaInicio = cursor.getString(cursor.getColumnIndex(COLUMN_FECHA_INICIO)),
-                fechaFin = cursor.getString(cursor.getColumnIndex(COLUMN_FECHA_FIN)),
-                actividades = cursor.getString(cursor.getColumnIndex(COLUMN_ACTIVIDADES)),
+                id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID)),
+                destino = cursor.getString(cursor.getColumnIndex(COLUMN_DESTINO)) ?: "",
+                fechaInicio = cursor.getString(cursor.getColumnIndex(COLUMN_FECHA_INICIO)) ?: "",
+                fechaFin = cursor.getString(cursor.getColumnIndex(COLUMN_FECHA_FIN)) ?: "",
+                actividades = cursor.getString(cursor.getColumnIndex(COLUMN_ACTIVIDADES)) ?: "",
                 presupuesto = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRESUPUESTO))
             )
             cursor.close()
@@ -117,10 +117,42 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     // Método para eliminar un viaje
-    fun deleteViaje(id: Int) {
+    fun deleteViaje(id: Long) {
         val db = this.writableDatabase
         db.delete(TABLE_VIAJES, "$COLUMN_ID=?", arrayOf(id.toString()))
         db.close()
+    }
+
+    // Método para obtener viajes por destino
+    fun getViajesPorDestino(destino: String): List<Viaje> {
+        val viajesList = mutableListOf<Viaje>()
+        val db = this.readableDatabase
+        val cursor: Cursor = db.query(
+            TABLE_VIAJES,
+            null,
+            "$COLUMN_DESTINO LIKE ?",
+            arrayOf("%$destino%"),
+            null,
+            null,
+            null
+        )
+
+        if (cursor.moveToFirst()) {
+            do {
+                val viaje = Viaje(
+                    id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID)),
+                    destino = cursor.getString(cursor.getColumnIndex(COLUMN_DESTINO)) ?: "",
+                    fechaInicio = cursor.getString(cursor.getColumnIndex(COLUMN_FECHA_INICIO)) ?: "",
+                    fechaFin = cursor.getString(cursor.getColumnIndex(COLUMN_FECHA_FIN)) ?: "",
+                    actividades = cursor.getString(cursor.getColumnIndex(COLUMN_ACTIVIDADES)) ?: "",
+                    presupuesto = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRESUPUESTO))
+                )
+                viajesList.add(viaje)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return viajesList
     }
 }
 

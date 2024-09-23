@@ -10,9 +10,10 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.miguelparcialapp.R
-import com.example.miguelparcialapp.datos.DatabaseHelper
-import com.example.miguelparcialapp.datos.Viaje
-import com.example.miguelparcialapp.adapters.ViajeAdapter
+import com.example.miguelparcialapp.Datos.DatabaseHelper
+import com.example.miguelparcialapp.Datos.Viaje
+import com.example.miguelparcialapp.adaptador.AdaptadorPagina
+import com.example.miguelparcialapp.ui.DetalleViajeFragment
 
 class BuscarViajesFragment : Fragment() {
 
@@ -21,17 +22,17 @@ class BuscarViajesFragment : Fragment() {
     private lateinit var btnBuscar: Button
     private lateinit var btnAgregar: Button
     private lateinit var listViewViajes: ListView
-    private lateinit var viajeAdapter: ViajeAdapter
+    private lateinit var viajeAdapter: AdaptadorPagina
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_buscar_viajes, container, false)
+        return inflater.inflate(R.layout.buscar_viaje, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view)
+        super.onViewCreated(view, savedInstanceState)
 
         dbHelper = DatabaseHelper(requireContext())
 
@@ -45,7 +46,6 @@ class BuscarViajesFragment : Fragment() {
         }
 
         btnAgregar.setOnClickListener {
-            // Navegar al fragmento AgregarViajeFragment
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, AgregarViajeFragment())
                 .addToBackStack(null)
@@ -64,7 +64,9 @@ class BuscarViajesFragment : Fragment() {
         val viajes: List<Viaje> = dbHelper.getViajesPorDestino(destino)
 
         if (viajes.isNotEmpty()) {
-            viajeAdapter = ViajeAdapter(requireContext(), viajes)
+            viajeAdapter = AdaptadorPagina(requireContext(), viajes) { viaje ->
+                mostrarDetallesViaje(viaje)
+            }
             listViewViajes.adapter = viajeAdapter
 
             listViewViajes.setOnItemClickListener { _, _, position, _ ->

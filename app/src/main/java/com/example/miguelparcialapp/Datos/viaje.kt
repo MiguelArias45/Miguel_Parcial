@@ -1,23 +1,47 @@
-package com.example.miguelparcialapp.datos
+package com.example.miguelparcialapp.Datos
 
-// Clase que representa un viaje
+import android.os.Parcel
+import android.os.Parcelable
+
 data class Viaje(
-    val id: Int = 0, // ID del viaje (se inicializa en 0 para viajes nuevos)
-    val destino: String, // Destino del viaje
-    val fechaInicio: String, // Fecha de inicio del viaje
-    val fechaFin: String, // Fecha de fin del viaje
-    val actividades: String, // Actividades planificadas para el viaje
-    val presupuesto: Double // Presupuesto del viaje
-) {
-    // Función para obtener un resumen del viaje
-    fun getResumen(): String {
-        return """
-            |Destino: $destino
-            |Fecha Inicio: $fechaInicio
-            |Fecha Fin: $fechaFin
-            |Actividades: $actividades
-            |Presupuesto: $presupuesto
-        """.trimMargin()
+    val id: Long,
+    val destino: String,
+    val fechaInicio: String,
+    val fechaFin: String,
+    val actividades: String,
+    val presupuesto: Double
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readLong(),
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readDouble()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(id)
+        parcel.writeString(destino)
+        parcel.writeString(fechaInicio)
+        parcel.writeString(fechaFin)
+        parcel.writeString(actividades)
+        parcel.writeDouble(presupuesto)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Viaje> {
+        override fun createFromParcel(parcel: Parcel): Viaje {
+            return Viaje(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Viaje?> {
+            return arrayOfNulls(size)
+        }
     }
 }
+
 

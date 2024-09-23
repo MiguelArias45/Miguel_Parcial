@@ -1,41 +1,34 @@
-package com.example.miguelparcialapp.ui.adapters
+package com.example.miguelparcialapp.adaptador
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import com.example.miguelparcialapp.Datos.Viaje
 import com.example.miguelparcialapp.R
-import com.example.miguelparcialapp.data.Viaje
 
-class ViajeAdapter(private var viajes: List<Viaje>, private val onClick: (Viaje) -> Unit) :
-    RecyclerView.Adapter<ViajeAdapter.ViajeViewHolder>() {
+class AdaptadorPagina(
+    context: Context,
+    private val viajes: List<Viaje>,
+    private val onClick: (Viaje) -> Unit
+) : ArrayAdapter<Viaje>(context, 0, viajes) {
 
-    class ViajeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textViewDestino: TextView = view.findViewById(R.id.textViewDestino)
-        val textViewFecha: TextView = view.findViewById(R.id.textViewFecha)
-    }
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val viaje = getItem(position)
+        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_viaje, parent, false)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViajeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_viaje, parent, false)
-        return ViajeViewHolder(view)
-    }
+        val textViewDestino = view.findViewById<TextView>(R.id.text1)
+        val textViewFecha = view.findViewById<TextView>(R.id.text2)
 
-    override fun onBindViewHolder(holder: ViajeViewHolder, position: Int) {
-        val viaje = viajes[position]
-        holder.textViewDestino.text = viaje.destino
-        holder.textViewFecha.text = "${viaje.fechaInicio} - ${viaje.fechaFin}"
+        textViewDestino.text = viaje?.destino
+        textViewFecha.text = viaje?.fechaFin
 
-        holder.itemView.setOnClickListener { onClick(viaje) }
-    }
+        view.setOnClickListener {
+            viaje?.let { onClick(it) }
+        }
 
-    override fun getItemCount(): Int = viajes.size
-
-    fun updateViajes(newViajes: List<Viaje>) {
-        viajes = newViajes
-        notifyDataSetChanged() // Notifica al adaptador que los datos han cambiado
+        return view
     }
 }
-
-
-

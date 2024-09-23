@@ -6,26 +6,31 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miguelparcialapp.R
-import com.example.miguelparcialapp.data.DatabaseHelper
-import com.example.miguelparcialapp.data.Viaje
-import com.example.miguelparcialapp.ui.adapters.ViajeAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.miguelparcialapp.Datos.DatabaseHelper
+import com.example.miguelparcialapp.Datos.Viaje
+import com.example.miguelparcialapp.adaptador.AdaptadorPagina // Verifica el nombre del adaptador
+import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var dbHelper: DatabaseHelper
-    private lateinit var viajeAdapter: ViajeAdapter
+    private lateinit var viajeAdapter: AdaptadorPagina
     private lateinit var recyclerView: RecyclerView
+    private lateinit var btnAgregarViaje: Button // Declaración del botón
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        dbHelper = DatabaseHelper(this) // Inicializamos la base de datos
-        recyclerView = findViewById(R.id.recyclerViewViajes) // Referencia al RecyclerView
+        // Inicializamos las vistas
+        recyclerView = findViewById(R.id.recyclerViewViajes)
+        btnAgregarViaje = findViewById(R.id.btnAgregarViaje)
 
-        // Configuramos el RecyclerView
-        viajeAdapter = ViajeAdapter(dbHelper.getAllViajes()) { viaje ->
+        // Inicializamos la base de datos
+        dbHelper = DatabaseHelper(this)
+
+        // Configuramos el RecyclerView y el adaptador
+        viajeAdapter = AdaptadorPagina(dbHelper.getAllViajes()) { viaje ->
             mostrarDetallesViaje(viaje)
         }
         recyclerView.layoutManager = LinearLayoutManager(this)

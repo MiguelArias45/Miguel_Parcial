@@ -9,8 +9,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.miguelparcialapp.R
-import com.example.miguelparcialapp.datos.DatabaseHelper
-import com.example.miguelparcialapp.datos.Viaje
+import com.example.miguelparcialapp.Datos.DatabaseHelper
+import com.example.miguelparcialapp.Datos.Viaje
 
 class AgregarViajeFragment : Fragment() {
 
@@ -65,7 +65,14 @@ class AgregarViajeFragment : Fragment() {
         }
 
         // Crear un nuevo objeto Viaje
-        val nuevoViaje = Viaje(destino = destino, fechaInicio = fechaInicio, fechaFin = fechaFin, actividades = actividades, presupuesto = presupuesto)
+        val nuevoViaje = Viaje(
+            id = 0, // Usar 0 para que SQLite maneje el ID
+            destino = destino,
+            fechaInicio = fechaInicio,
+            fechaFin = fechaFin,
+            actividades = actividades,
+            presupuesto = presupuesto
+        )
 
         // Guardar el viaje en la base de datos
         dbHelper.addViaje(nuevoViaje)

@@ -1,66 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/inputDestino"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Destino"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:hint="Destino" />
 
     <EditText
         android:id="@+id/inputFechaInicio"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de Inicio (yyyy-MM-dd)"
-        app:layout_constraintTop_toBottomOf="@id/inputDestino"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:hint="Fecha de Inicio" />
 
     <EditText
         android:id="@+id/inputFechaFin"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de Fin (yyyy-MM-dd)"
-        app:layout_constraintTop_toBottomOf="@id/inputFechaInicio"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:hint="Fecha de Fin" />
 
     <EditText
         android:id="@+id/inputActividades"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Actividades"
-        app:layout_constraintTop_toBottomOf="@id/inputFechaFin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:hint="Actividades" />
 
     <EditText
         android:id="@+id/inputPresupuesto"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Presupuesto"
-        app:layout_constraintTop_toBottomOf="@id/inputActividades"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:hint="Presupuesto" />
 
     <Button
         android:id="@+id/btnGuardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guardar"
-        app:layout_constraintTop_toBottomOf="@id/inputPresupuesto"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="Guardar" />
+</LinearLayout>
